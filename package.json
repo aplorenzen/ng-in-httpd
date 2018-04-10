@@ -13,8 +13,7 @@
   },
   "private": true,
   "config": {
-    "docker-registry": "docker.neoprime.it",
-    "docker-namespace": "neo"
+    "docker-namespace": "aplorenzen"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",

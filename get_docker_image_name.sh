@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# TODO: Get the registry name (docker.neoprime.it)
-# TODO: Get the namespace name in the registry (neo)
-# TODO: Find a way to get the envionrment of the target build, and pass it to this script
+# TODO: Update the script so that it takes care of all the failure scenarios, and informs and helps the user
 
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-
-# echo $BRANCH_NAME
 
 # Version key/value should be on his own line
 PACKAGE_VERSION=$(cat package.json \
@@ -41,7 +37,13 @@ if [ -n "$1" ]; then
   ENVIRONMENT=$1;
 fi
 
-IMAGE_NAME="$REGISTRY_URL/$REGISTRY_NAMESPACE/$PROJECT_NAME:$PACKAGE_VERSION-$BRANCH_NAME"
+if [ -n "$REGISTRY_URL" ]; then
+  # Registry suppled, composing complete qualified image tag
+  IMAGE_NAME="$REGISTRY_URL/$REGISTRY_NAMESPACE/$PROJECT_NAME:$PACKAGE_VERSION-$BRANCH_NAME"
+else
+  # Registry not supplied, assuming hub.docker.com
+  IMAGE_NAME="$REGISTRY_NAMESPACE/$PROJECT_NAME:$PACKAGE_VERSION-$BRANCH_NAME"
+fi
 
 if [ -n "$ENVIRONMENT" ]; then
   IMAGE_NAME="$IMAGE_NAME-$ENVIRONMENT";
