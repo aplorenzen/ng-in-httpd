@@ -1,6 +1,6 @@
 {
   "name": "ng-httpd",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docker:build": "bash -c ./get_docker_image_name.sh | xargs -0 -I % docker build -t % dist/"
+    "docker:build": "npm run build && bash -c ./get_docker_image_name.sh | xargs -0 -I % docker build -t % dist/"
   },
   "private": true,
   "config": {
