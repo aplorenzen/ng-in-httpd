@@ -11,7 +11,7 @@
         "assets",
         "favicon.ico",
         {
-          "glob": "Dockerfile",
+          "glob": "*",
           "input": "docker/",
           "output": "./"
         }
