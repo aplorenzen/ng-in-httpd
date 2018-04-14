@@ -15,15 +15,14 @@ RUN sed -i -e \
 
 # Append to the published directory, that we want to rewrite any request that is not an actual file
 # to the index.html page.
-RUN sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/a # This was written from the Dockerfile\n\
-    \n\
+RUN sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/a### Rewrite rule was written from the Dockerfile when building the image ###\n\
     DirectoryIndex index.html\n\
     RewriteEngine on\n\
     RewriteCond %{REQUEST_FILENAME} -s [OR]\n\
     RewriteCond %{REQUEST_FILENAME} -l [OR]\n\
     RewriteCond %{REQUEST_FILENAME} -d\n\
     RewriteRule ^.*$ - [NC,L]\n\
-    RewriteRule ^(.*) index.html [NC,L]' /usr/local/apache2/conf/httpd.conf
+    RewriteRule ^(.*) index.html [NC,L]\n' /usr/local/apache2/conf/httpd.conf
 
 # Comment out the default config that handles requests to /.htaccess and /.ht* with a special error message,
 # Angular will handle all routing
