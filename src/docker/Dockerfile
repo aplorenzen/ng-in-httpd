@@ -9,7 +9,7 @@ RUN rm -r /usr/local/apache2/htdocs/*
 COPY ./ /usr/local/apache2/htdocs/
 
 # Enable the rewrite module in apache2. 
-RUN sed -i -e \
+RUN sed -i \
   's/#LoadModule rewrite_module modules\/mod_rewrite.so/LoadModule rewrite_module modules\/mod_rewrite.so/g' \
   /usr/local/apache2/conf/httpd.conf
 
@@ -19,10 +19,10 @@ RUN sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/a### Rewrite rule was w
     DirectoryIndex index.html\n\
     RewriteEngine on\n\
     RewriteCond %{REQUEST_FILENAME} -s [OR]\n\
-    RewriteCond %{REQUEST_FILENAME} -l [OR]\n\
     RewriteCond %{REQUEST_FILENAME} -d\n\
     RewriteRule ^.*$ - [NC,L]\n\
-    RewriteRule ^(.*) index.html [NC,L]\n' /usr/local/apache2/conf/httpd.conf
+    RewriteRule ^(.*) index.html [NC,L]\n' \
+  /usr/local/apache2/conf/httpd.conf
 
 # Comment out the default config that handles requests to /.htaccess and /.ht* with a special error message,
 # Angular will handle all routing
@@ -40,3 +40,9 @@ RUN chown -R root:daemon \
 # Ensure that the files can only be read, even by the httpd server.
 RUN chmod -R 440 \
   /usr/local/apache2/htdocs/*
+
+# Install curl, just for healthchecking, without using local cache for the package lists
+RUN apk --no-cache add curl
+
+# Define a healthcheck that tests the root URL of the site
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:80/ || exit 1
