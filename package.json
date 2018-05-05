@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docker:build": "npm run build && bash -c ./get_docker_image_name.sh | xargs -0 -I % docker build -t % dist/",
+    "docker:build": "npm run build && bash -c ./get_docker_image_name.sh | xargs -0 -I % docker build -f ./Dockerfile -t % dist/",
     "docker:push": "bash -c ./get_docker_image_name.sh | xargs -0 -I % docker push %"
   },
   "private": true,

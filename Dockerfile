@@ -8,7 +8,7 @@ RUN rm -r /usr/local/apache2/htdocs/*
 # Copy all the files from the docker build context into the public htdocs of the apache container.
 COPY ./ /usr/local/apache2/htdocs/
 
-# Enable the rewrite module in apache2. 
+# Enable the rewrite module in apache2.
 RUN sed -i \
   's/#LoadModule rewrite_module modules\/mod_rewrite.so/LoadModule rewrite_module modules\/mod_rewrite.so/g' \
   /usr/local/apache2/conf/httpd.conf

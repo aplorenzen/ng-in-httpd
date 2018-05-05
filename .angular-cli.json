@@ -9,12 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
-        {
-          "glob": "*",
-          "input": "docker/",
-          "output": "./"
-        }
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
