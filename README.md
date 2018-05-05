@@ -1,10 +1,13 @@
 # ng-in-httpd
-An example project, on how to wrap an angular 2/4/5 application in an apache2 docker image
+An example project, on how to wrap an angular application in an apache2 httpd docker container.
 
+You can find an article that describes the construction of the docker image here: https://blog.neoprime.it/ng-in-httpd/
 
-# NgHttpd
+The article goes in depth with routing, request rewriting, file permissions and tying the build and push docker tasks into the existing angular tooling.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+
+Below are the standard angular tool instructions
 
 ## Development server
 
@@ -29,7 +32,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-=======
-Added to package.json to create an npm task that will build the docker image:
-     "docker:build": "bash -c ./get_docker_image_name.sh | xargs -0 -I % docker build -t % dist/"
- 21
+
